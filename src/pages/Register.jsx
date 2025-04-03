@@ -4,7 +4,7 @@ import { useRegister } from "../hooks/useRegister";
 
 function Register() {
   const { data, isPending, register } = useRegister();
-  const hanldeSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
 
@@ -20,7 +20,7 @@ function Register() {
         <div className="login-register-left-section hidden md:flex"></div>
         <div className="grid place-items-center login-register-left-section md:bg-none">
           <div className="overlay"></div>
-          <form onSubmit={hanldeSubmit} className="w-96 relative z-20">
+          <form onSubmit={handleSubmit} className="w-96 relative z-20">
             <h2 className="text-3xl text-center mb-5 font-bold  text-white md:text-black">
               Register
             </h2>

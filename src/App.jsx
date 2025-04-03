@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -34,11 +38,11 @@ function App() {
     },
     {
       path: "/login",
-      element: <Login />,
+      element: user ? <Navigate to="/" /> : <Login />,
     },
     {
       path: "/register",
-      element: <Register />,
+      element: user ? <Navigate to="/" /> : <Register />,
     },
   ]);
 

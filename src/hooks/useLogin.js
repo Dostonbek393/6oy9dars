@@ -13,10 +13,6 @@ export const useLogin = () => {
     try {
       setIsPending(true);
       const req = await signInWithEmailAndPassword(auth, email, password);
-      await updateProfile(auth.currentUser, {
-        displayName,
-        photoURL: `https://api.dicebear.com/9.x/adventurer/svg?seed=${displayName}`,
-      });
       const user = req.user;
       toast.success(`Welcome come back, ${user.displayName}`);
       dispatch({ type: "LOGIN", payload: user });
