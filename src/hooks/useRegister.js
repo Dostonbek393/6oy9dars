@@ -25,7 +25,7 @@ export const useRegister = () => {
         photoURL: user.photoURL,
         online: true,
       });
-      toast.success(`Welcome, ${user.displayName}`);
+      toast.success(`Welcome, ${displayName}`);
       dispatch({ type: "LOGIN", payload: user });
       setData(user);
     } catch (error) {

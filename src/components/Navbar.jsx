@@ -15,14 +15,7 @@ function Navbar() {
         </div>
         <div className="navbar-center"></div>
         <div className="navbar-end">
-          <div className="flex gap-3 items-center mr-5">
-            <div className="avatar">
-              <div className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
-                <img src={user.photoURL} alt={`${user.displayName}'s avatar`} />
-              </div>
-            </div>
-            <div>Hello, {user.displayName}</div>
-          </div>
+          <div className="flex gap-3 items-center mr-5"></div>
           {!isPending && (
             <button onClick={logout} className="btn btn-secondary btn-outline">
               Logout
