@@ -1,17 +1,17 @@
-function Forminput({ name, type, label }) {
+function Forminput({ name, label, type, value, onChange }) {
   return (
-    <fieldset className="fieldset">
-      <legend className="fieldset-legend text-white md:text-black">
-        {label}
-      </legend>
+    <div className="form-control w-full mb-4">
+      <label className="label">
+        <span className="label-text">{label}</span>
+      </label>
       <input
-        type={type}
-        className="input w-full"
         name={name}
-        placeholder="Type here"
-        required
+        type={type}
+        value={value}
+        onChange={onChange}
+        className="input input-bordered w-full"
       />
-    </fieldset>
+    </div>
   );
 }
 
