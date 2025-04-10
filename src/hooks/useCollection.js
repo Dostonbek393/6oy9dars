@@ -4,6 +4,8 @@ import { collection, onSnapshot } from "firebase/firestore";
 
 export function useCollection(c) {
   const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, c), (snapshot) => {
       const data = [];
@@ -12,10 +14,11 @@ export function useCollection(c) {
       });
 
       setData(data);
+      setLoading(false);
     });
 
     return () => unsubscribe();
   }, [c]);
 
-  return { data };
+  return { data, loading };
 }
