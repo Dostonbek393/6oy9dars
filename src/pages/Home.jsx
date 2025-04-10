@@ -1,3 +1,4 @@
+import Modal from "../pages/Modal";
 import { useCollection } from "../hooks/useCollection";
 import { useState } from "react";
 import { TiShoppingCart } from "react-icons/ti";
@@ -5,12 +6,18 @@ import { TiStar, TiStarOutline } from "react-icons/ti";
 
 function Home() {
   const [ratings, setRatings] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
 
   const handleRating = (id, star) => {
     setRatings((prevRatings) => ({
       ...prevRatings,
       [id]: star,
     }));
+  };
+
+  const handleOrderClick = (e) => {
+    e.stopPropagation();
   };
 
   const bgColors = [
@@ -44,10 +51,14 @@ function Home() {
             const randomBg = getRandomColor();
             return (
               <div
+                onClick={() => {
+                  setSelectedRecipe(r);
+                  setIsModalOpen(true);
+                }}
                 key={r.id}
                 className={`${randomBg} rounded-2xl shadow-md p-4 hover:shadow-xl hover:scale-105 transition-all  duration-300 cursor-pointer flex flex-col h-full`}
               >
-                <h2 className="text-2xl text-red-600 font-semibold mb-2">
+                <h2 className="text-2xl text-red-600 font-semibold mb-2 border-b-2 border-b-red-500">
                   {r.title}
                 </h2>
                 <p className="text-sm text-gray-500 mb-2">
@@ -56,33 +67,47 @@ function Home() {
                 <p className="text-xl text-green-600 font-semibold mb-2">
                   Ingredients: {r.ingredients.join(", ")}
                 </p>
-                <h2 className="text-xl text-amber-500">
-                  Description: {r.description} ...
-                </h2>
                 <div className="flex mt-3 mb-2">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <div key={star}>
                       {ratings[r.id] >= star ? (
                         <TiStar
                           className="text-yellow-400 cursor-pointer text-2xl"
-                          onClick={() => handleRating(r.id, star)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRating(r.id, star);
+                          }}
                         />
                       ) : (
                         <TiStarOutline
                           className="text-yellow-400 cursor-pointer text-2xl"
-                          onClick={() => handleRating(r.id, star)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRating(r.id, star);
+                          }}
                         />
                       )}
                     </div>
                   ))}
                 </div>
-                <button className="bg-green-300 border-2 border-green-500 text-black p-3 rounded-lg hover:bg-green-500 hover:text-white transition duration-300 cursor-pointer mt-auto ml-15 flex items-center justify-center">
+                <button
+                  onClick={handleOrderClick}
+                  className="bg-green-300 border-2 border-green-500 text-black p-3 rounded-lg hover:bg-green-500 hover:text-white transition duration-300 cursor-pointer mt-auto ml-15 flex items-center justify-center"
+                >
                   Buyurtma berish <TiShoppingCart className="ml-2 text-xl" />
                 </button>
               </div>
             );
           })}
       </div>
+
+      {selectedRecipe && (
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          recipe={selectedRecipe}
+        ></Modal>
+      )}
     </div>
   );
 }
